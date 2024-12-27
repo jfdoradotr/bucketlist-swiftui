@@ -15,4 +15,8 @@ struct Location: Codable, Equatable, Identifiable {
   var coordinate: CLLocationCoordinate2D {
     CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
   }
+
+  static func ==(lhs: Location, rhs: Location) -> Bool {
+    lhs.id == rhs.id
+  }
 }
