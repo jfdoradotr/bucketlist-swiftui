@@ -13,12 +13,15 @@ struct ContentView: View {
     )
   )
 
+  @State private var locations = [Location]()
+
   var body: some View {
     MapReader { proxy in
       Map(initialPosition: startPosition)
         .onTapGesture { position in
           if let coordinate = proxy.convert(position, from: .local) {
-            print("Tapped at \(coordinate)")
+            let newLocation = Location(id: UUID(), name: "New Location", description: "", latitude: coordinate.latitude, longitude: coordinate.longitude)
+            locations.append(newLocation)
           }
         }
     }
