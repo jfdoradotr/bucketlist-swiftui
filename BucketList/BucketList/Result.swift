@@ -16,4 +16,10 @@ struct Page: Codable {
   let pageId: Int
   let title: String
   let terms: [String: [String]]?
+
+  enum CodingKeys: String, CodingKey {
+    case pageId = "pageid"
+    case title
+    case terms
+  }
 }
