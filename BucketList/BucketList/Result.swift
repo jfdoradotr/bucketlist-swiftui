@@ -23,6 +23,10 @@ struct Page: Codable, Comparable {
     case terms
   }
 
+  var description: String {
+    terms?["description"]?.first ?? "No further information"
+  }
+
   static func <(lhs: Page, rhs: Page) -> Bool {
     lhs.title < rhs.title
   }
