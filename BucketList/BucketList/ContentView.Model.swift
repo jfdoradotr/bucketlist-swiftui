@@ -8,7 +8,7 @@ import SwiftUI
 extension ContentView {
   @Observable
   class Model {
-    private(set) var locations = [Location]()
+    private(set) var locations: [Location]
     var selectedPlace: Location?
     let savePath = URL.documentsDirectory.appending(path: "SavedPlaces")
 
