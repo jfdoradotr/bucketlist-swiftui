@@ -32,5 +32,14 @@ extension ContentView {
         locations[index] = location
       }
     }
+
+    func save() {
+      do {
+        let data = try JSONEncoder().encode(locations)
+        try data.write(to: savePath, options: [.atomic, .completeFileProtection])
+      } catch {
+        print("Unable to save data")
+      }
+    }
   }
 }
