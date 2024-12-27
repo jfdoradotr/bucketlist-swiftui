@@ -10,6 +10,7 @@ struct EditView: View {
 
   @State private var name: String
   @State private var description: String
+  var onSave: (Location) -> Void
 
   var body: some View {
     NavigationStack {
@@ -28,8 +29,9 @@ struct EditView: View {
     }
   }
 
-  init(location: Location) {
+  init(location: Location, onSave: @escaping (Location) -> Void) {
     self.location = location
+    self.onSave = onSave
 
     _name = State(initialValue: location.name)
     _description = State(initialValue: location.description)
@@ -37,5 +39,5 @@ struct EditView: View {
 }
 
 #Preview {
-  EditView(location: .example)
+  EditView(location: .example) { _ in }
 }
