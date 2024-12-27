@@ -3,6 +3,7 @@
 //
 
 import CoreLocation
+import LocalAuthentication
 import SwiftUI
 
 extension ContentView {
@@ -11,6 +12,7 @@ extension ContentView {
     private(set) var locations: [Location]
     var selectedPlace: Location?
     let savePath = URL.documentsDirectory.appending(path: "SavedPlaces")
+    var isUnlocked = false
 
     init() {
       do {
@@ -39,6 +41,24 @@ extension ContentView {
         try data.write(to: savePath, options: [.atomic, .completeFileProtection])
       } catch {
         print("Unable to save data")
+      }
+    }
+
+    func authenticate() {
+      let context = LAContext()
+      var error: NSError?
+
+      if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+        let reason = "Please authenticate yourself to unlock your places."
+        context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+          if success {
+            self.isUnlocked = true
+          } else {
+            // error
+          }
+        }
+      } else {
+        // no biometrics
       }
     }
   }
