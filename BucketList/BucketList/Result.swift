@@ -12,7 +12,7 @@ struct Query: Codable {
   let pages: [Int: Page]
 }
 
-struct Page: Codable {
+struct Page: Codable, Comparable {
   let pageId: Int
   let title: String
   let terms: [String: [String]]?
@@ -21,5 +21,9 @@ struct Page: Codable {
     case pageId = "pageid"
     case title
     case terms
+  }
+
+  static func <(lhs: Page, rhs: Page) -> Bool {
+    lhs.title < rhs.title
   }
 }
